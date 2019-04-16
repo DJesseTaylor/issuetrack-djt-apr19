@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import * as actions from '../actions/developer.actions';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 
 export interface DeveloperEntity {
@@ -11,29 +12,16 @@ export interface DeveloperEntity {
 export interface State extends EntityState<DeveloperEntity> {
 
 }
-
-const initialState: State = {
-  ids: ['1', '2'],
-  entities: {
-    1: {
-      id: '1',
-      firstName: 'Jesse',
-      lastName: 'Taylor',
-      team: 'Monolithic'
-    },
-    2: {
-      id: '2',
-      firstName: 'Kent',
-      lastName: 'Bechtel',
-      team: 'Monolithic'
-    }
-  }
-};
-
 export const adapter = createEntityAdapter<DeveloperEntity>();
 
-export function reducer(state: State = initialState, action: Action): State {
+const initialState: State = adapter.getInitialState();
+
+
+export function reducer(state: State = initialState, action: actions.DeveloperActions): State {
   switch (action.type) {
+    case actions.LOAD_DEVELOPERS_SUCCESS: {
+      return adapter.addAll(action.payload, state);
+    }
     default: {
       return state;
     }
