@@ -7,13 +7,16 @@ import {
 } from '@ngrx/store';
 import * as fromErrors from './errors.reducer';
 import { environment } from '../../environments/environment';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 
 export interface State {
   errors: fromErrors.State;
+  router: RouterReducerState;
 }
 
 export const reducers: ActionReducerMap<State> = {
-  errors: fromErrors.reducer
+  errors: fromErrors.reducer,
+  router: routerReducer
 };
 
 
