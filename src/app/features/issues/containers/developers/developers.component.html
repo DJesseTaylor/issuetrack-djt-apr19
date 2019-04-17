@@ -6,4 +6,10 @@
     <app-developer-list-sorter></app-developer-list-sorter>
     <app-developer-list [developers]="devs$ | async"></app-developer-list>
   </div>
+  <div class="alert alert-danger"
+       *ngIf="(devsLoaded$| async) === false">
+    <h1>The Developers are getting loaded. Be with you soon</h1>
+    <img src="https://media.giphy.com/media/WiIuC6fAOoXD2/giphy.gif" />
+
+  </div>
 </div>

@@ -14,6 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppStartUpEffects } from './effects/apps-startup.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { DeveloperEffects } from './effects/developers.effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [IssuesComponent,
@@ -27,7 +28,8 @@ import { DeveloperEffects } from './effects/developers.effects';
     IssuesRoutingModule,
     StoreModule.forFeature(featureName, reducers),
     EffectsModule.forFeature([AppStartUpEffects, DeveloperEffects]),
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ]
 })
 export class IssuesModule { }
