@@ -1,0 +1,84 @@
+<form [formGroup]="inputs"
+      class="form-group">
+  <div>
+    <label for="developer">Developer To Assign</label>
+    <select formControlName="developer"
+            class="form-control">
+      <option *ngFor="let dev of developers"
+              value="{{dev.firstName}} {{dev.lastName}}">{{dev.firstName}} {{dev.lastName}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="commit">Commit hash</label>
+    <input class="form-control"
+           formControlName="commit"
+           name="commit">
+  </div>
+</form>
+
+<div class="row">
+  <div class="col defect-list-container">
+    <h6>Unassigned</h6>
+
+    <div cdkDropList
+         #unassignedList="cdkDropList"
+         [cdkDropListData]="defectsUn"
+         [cdkDropListConnectedTo]="[assignedList]"
+         class="defect-list"
+         (cdkDropListDropped)="dropUnassigned($event)"
+         [cdkDropListEnterPredicate]="notInComplete">
+      <div class="defect-box"
+           *ngFor="let defect of defectsUn"
+           [cdkDragData]="defect"
+           cdkDrag>
+        <div class="font-weight-bold">{{defect.title}}</div>
+        <div>Date: {{defect.date.getMonth()}}/{{defect.date.getDate()}}/{{defect.date.getFullYear()}}</div>
+        <div>Description: {{defect.description}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col defect-list-container">
+    <h6>Assigned</h6>
+
+    <div cdkDropList
+         #assignedList="cdkDropList"
+         [cdkDropListData]="defectsAs"
+         [cdkDropListConnectedTo]="[unassignedList, completeList]"
+         class="defect-list"
+         (cdkDropListDropped)="dropAssigned($event)">
+      <div class="defect-box"
+           *ngFor="let defect of defectsAs"
+           [cdkDragData]="defect"
+           cdkDrag>
+        <div class="font-weight-bold">{{defect.title}}</div>
+        <div>Date: {{defect.date.getMonth()}}/{{defect.date.getDate()}}/{{defect.date.getFullYear()}}</div>
+        <div>Description: {{defect.description}}</div>
+        <div>Developer: {{defect.developer}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col defect-list-container">
+    <h6>Complete</h6>
+
+    <div cdkDropList
+         #completeList="cdkDropList"
+         [cdkDropListData]="defectsComp"
+         [cdkDropListConnectedTo]="[assignedList]"
+         class="defect-list"
+         (cdkDropListDropped)="dropComplete($event)"
+         [cdkDropListEnterPredicate]="notInUnassigned">
+      <div class="defect-box"
+           *ngFor="let defect of defectsComp"
+           [cdkDragData]="defect"
+           cdkDrag>
+        <div class="font-weight-bold">{{defect.title}}</div>
+        <div>Date: {{defect.date.getMonth()}}/{{defect.date.getDate()}}/{{defect.date.getFullYear()}}</div>
+        <div>Description: {{defect.description}}</div>
+        <div>Developer: {{defect.developer}}</div>
+        <div>Commit Hash: {{defect.commit}}</div>
+      </div>
+    </div>
+  </div>
+</div>

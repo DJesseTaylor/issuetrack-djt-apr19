@@ -15,6 +15,9 @@ import { AppStartUpEffects } from './effects/apps-startup.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { DeveloperEffects } from './effects/developers.effects';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DefectsComponent } from './containers/defects/defects.component';
+import { DefectTrackerComponent } from './components/defect-tracker/defect-tracker.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [IssuesComponent,
@@ -22,14 +25,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     OverviewComponent,
     DeveloperEntryComponent,
     DeveloperListComponent,
-    DeveloperListSorterComponent],
+    DeveloperListSorterComponent,
+    DefectsComponent,
+    DefectTrackerComponent],
   imports: [
     CommonModule,
     IssuesRoutingModule,
     StoreModule.forFeature(featureName, reducers),
     EffectsModule.forFeature([AppStartUpEffects, DeveloperEffects]),
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule
   ]
 })
 export class IssuesModule { }

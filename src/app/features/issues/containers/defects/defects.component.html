@@ -1,0 +1,6 @@
+<div>
+  <app-defect-tracker [developers]="devs$ | async"
+                      [defectsUn]="defectsUnassigned$|async"
+                      [defectsAs]="defectsAssigned$|async"
+                      [defectsComp]="defectsComplete$|async"></app-defect-tracker>
+</div>
